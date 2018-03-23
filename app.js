@@ -1,5 +1,3 @@
-const fileKey = 'FpeOxjOK3CFQr0hVklY8OO5C';
-
 function apiRequest(endpoint) {
 	return fetch('https://api.figma.com/v1' + endpoint, {
 		method: 'GET',
@@ -13,17 +11,32 @@ function apiRequest(endpoint) {
 
 function callFigma() {
 	showSpinner();
-	apiRequest('/files/' + fileKey)
+
+	apiRequest('/files/' + getFileKey())
 	.then(function (apiResponse) {
 		hideSpinner();
 		
-		if (apiResponse.thumbnailUrl) {
+		if (apiResponse && apiResponse.thumbnailUrl) {
 			document.querySelector('img').src = apiResponse.thumbnailUrl;
 		}
-		if (apiResponse.name) {
+		if (apiResponse && apiResponse.name) {
 			document.querySelector('h1').innerHTML = apiResponse.name;
 		}
 	});
+}
+
+// index.html?fileKey=FpeOxjOK3CFQr0hVklY8OO5C (fileKey of your Figma's file)
+function getFileKey() {
+	var url_string = window.location.href;
+	var url = new URL(url_string);
+
+	if (url.searchParams.get("fileKey")) {
+		var fileKey = url.searchParams.get("fileKey");
+	} else {
+		return;
+	}
+
+	return fileKey;
 }
 
 function showSpinner() {
