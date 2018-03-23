@@ -1,8 +1,8 @@
-# Figma Playground
+# Figma Platform Playground
 
 Playing with the new Figma platform.
 
-Create a new file called config.js with your [Personal Access Tokens](https://www.figma.com/developers/docs#auth)
+Create a new file called Config.js with your [Personal Access Tokens](https://www.figma.com/developers/docs#auth)
 
 ```javascript
 const config = {
